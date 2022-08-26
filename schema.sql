@@ -1,7 +1,7 @@
 /* CREATING THE ANIMALS TABLE */
 
 CREATE TABLE animals (
-   id int PRIMARY KEY,
+   id SERIAL PRIMARY KEY,
    name VARCHAR(50) NOT NULL,
    date_of_birth DATE NOT NULL,
     escape_attempts INT,
@@ -35,3 +35,4 @@ ALTER TABLE animals ADD CONSTRAINT fk_constraint FOREIGN KEY (species_id) REFERE
 ALTER TABLE animals ADD COLUMN owner_id INT;
 
 ALTER TABLE animals ADD CONSTRAINT fk_owners FOREIGN KEY (owner_id) REFERENCES owners (id);
+
