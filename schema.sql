@@ -1,38 +1,34 @@
-/* CREATING THE ANIMALS TABLE */
 
-CREATE TABLE animals (
+CREATE TABLE vets (
    id SERIAL PRIMARY KEY,
    name VARCHAR(50) NOT NULL,
-   date_of_birth DATE NOT NULL,
-    escape_attempts INT,
-    neutered BOOLEAN,
-    weigth_kg DECIMAL,
-    species VARCHAR(50)
+    age INT NOT NULL,
+    date_of_graduation DATE
 );
 
-CREATE TABLE owners (
+CREATE TABLE specializations (
    id SERIAL PRIMARY KEY,
-   full_name VARCHAR(50) NOT NULL,
-   age INT NOT NULL
+   species_id INT,
+   vet_id INT 
    
 );
 
-CREATE TABLE species (
+CREATE TABLE visits (
    id SERIAL PRIMARY KEY,
-   name VARCHAR(50) NOT NULL
+  vet_id INT,
+  animals_id INT,
+  date_of_visit DATE
   
 );
 
-CREATE SEQUENCE my_serials AS integer START 1 OWNED BY animals.id;
-ALTER TABLE animals ALTER COLUMN id SET DEFAULT setval('my_serials');
 
-ALTER TABLE animals DROP COLUMN species;
 
-ALTER TABLE animals ADD COLUMN species_id INT;
 
-ALTER TABLE animals ADD CONSTRAINT fk_constraint FOREIGN KEY (species_id) REFERENCES species (id);
 
-ALTER TABLE animals ADD COLUMN owner_id INT;
+ALTER TABLE specializations ADD CONSTRAINT fk_constraint FOREIGN KEY (species_id) REFERENCES species (id);
 
-ALTER TABLE animals ADD CONSTRAINT fk_owners FOREIGN KEY (owner_id) REFERENCES owners (id);
+ALTER TABLE specializations ADD CONSTRAINT fk_constraints FOREIGN KEY (vet_id) REFERENCES vets (id);
 
+ALTER TABLE visits ADD CONSTRAINT fk_visit FOREIGN KEY (vet_id) REFERENCES vets (id);
+
+ALTER TABLE visits ADD CONSTRAINT fk_visits FOREIGN KEY (animals_id) REFERENCES animals (id);
