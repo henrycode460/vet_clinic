@@ -32,3 +32,12 @@ ALTER TABLE specializations ADD CONSTRAINT fk_constraints FOREIGN KEY (vet_id) R
 ALTER TABLE visits ADD CONSTRAINT fk_visit FOREIGN KEY (vet_id) REFERENCES vets (id);
 
 ALTER TABLE visits ADD CONSTRAINT fk_visits FOREIGN KEY (animals_id) REFERENCES animals (id);
+
+-- ------------------------------------------------------------------------------------------------------
+-- Data Optmization and Perfromence 
+
+ALTER TABLE owners ADD COLUMN email VARCHAR(120);
+
+CREATE INDEX visits_id ON visits(id ASC);
+
+CREATE INDEX vets_id ON vets(id ASC);
