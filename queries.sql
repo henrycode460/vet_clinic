@@ -65,3 +65,15 @@ JOIN visits ON visits.animals_id = animals.id
 JOIN vets ON vets.id = visits.vet_id AND vets.name = 'Vet Maisy Smith'
 GROUP BY species.name
 ORDER BY COUNT(species_id) DESC;
+
+-- ------------------------------------------------------------------------------------------------------
+-- Data Optmization and Perfromence 
+
+-- Query One
+explain analyze SELECT COUNT(*) FROM visits where animal_id = 4;
+
+-- Query Two
+explain analyze SELECT * FROM visits where vet_id = 2;
+
+-- Query Three
+explain analyze SELECT * FROM owners where email = 'owner_18327@mail.com';
