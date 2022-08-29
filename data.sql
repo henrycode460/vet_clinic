@@ -1,35 +1,39 @@
-/* INSERTING DATA INTO the animals table */
+/* INSERTING DATA  */
 
 -- Insert the following data into the owners table: 
 
-INSERT INTO owners  (full_name, age) VALUES ( 'Sam Smith', 34), ( 'Jennifer Orwell', 19),
-( 'Bob', 45), ( 'Melody Pond', 77), ( 'Dean Winchester', 14), ( 'Jodie Whittaker', 38);
+INSERT INTO vets  (name, age, date_of_graduation) VALUES ( 'Vet William Tatcher', 45, '2000-04-23'), ( 'Vet Maisy Smith', 26, '2019-01-17'),
+( 'Vet Stephanie Mendez',  64, '1981-05-04'), ( 'Vet Jack Harkness',  38, '2008-06-08');
 
--- Insert the following data into the species table:
-INSERT INTO species (name) VALUES ( 'Pokemon'), ( 'Digimon');
 
--- If the name ends in "mon" it will be Digimon
-UPDATE animals SET species_id = 2 WHERE name LIKE '%mon';
+
+-- Vet William Tatcher is specialized in Pokemon.
+INSERT INTO specializations(vet_id, species_id)
+VALUES((SELECT id FROM vets WHERE vets.name = 'Vet William Tatcher'), (SELECT id FROM species WHERE species.name = 'Pokemon')),
+      ((SELECT id FROM vets WHERE vets.name = 'Vet Stephanie Mendez'), (SELECT id FROM species WHERE species.name = 'Pokemon')),
+      ((SELECT id FROM vets WHERE vets.name = 'Vet Stephanie Mendez'), (SELECT id FROM species WHERE species.name = 'Digimon')),
+      ((SELECT id FROM vets WHERE vets.name = 'Vet Jack Harkness'), (SELECT id FROM species WHERE species.name = 'Digimon'));
 
 -- All other animals are Pokemon
 
-UPDATE animals SET species_id = 1 WHERE species_id IS NULL;
-
--- Modify your inserted animals to include owner information (owner_id): 
--- Sam Smith owns Agumon.
-
-UPDATE animals SET owner_id = 1 WHERE name = 'Agumon';
-
--- Jennifer Orwell owns Gabumon and Pikachu.
-UPDATE animals SET owner_id = 2 WHERE name IN ('Gabumon','Pikachu');
-
--- Bob owns Devimon and Plantmon.
-UPDATE animals SET owner_id = 3 WHERE name IN ('Devimon','Plantmon');
-
--- Melody Pond owns Charmander, Squirtle, and Blossom.
-
-UPDATE animals SET owner_id = 4 WHERE name IN ('Charmander','Squirtle', 'Blossom');
-
--- Dean Winchester owns Angemon and Boarmon.
-
-UPDATE animals SET owner_id = 5 WHERE name IN ('Angemon', 'Boarmon');
+INSERT INTO visits(animals_id, vet_id, date_of_visit)
+VALUES((SELECT id FROM animals WHERE animals.name = 'Agumon'), (SELECT id FROM vets WHERE vets.name = 'Vet William Tatcher'), '2020-05-24'),
+      ((SELECT id FROM animals WHERE animals.name = 'Agumon'), (SELECT id FROM vets WHERE vets.name = 'Vet Stephanie Mendez'), '2020-06-22'),
+      ((SELECT id FROM animals WHERE animals.name = 'Gabumon'), (SELECT id FROM vets WHERE vets.name = 'Vet Jack Harkness'), '2021-02-02'),
+      ((SELECT id FROM animals WHERE animals.name = 'Pikachu'), (SELECT id FROM vets WHERE vets.name = 'Vet Maisy Smith'), '2020-01-05'),
+      ((SELECT id FROM animals WHERE animals.name = 'Pikachu'), (SELECT id FROM vets WHERE vets.name = 'Vet Maisy Smith'), '2020-03-08'),
+      ((SELECT id FROM animals WHERE animals.name = 'Pikachu'), (SELECT id FROM vets WHERE vets.name = 'Vet Maisy Smith'), '2020-05-14'),
+      ((SELECT id FROM animals WHERE animals.name = 'Devimon'), (SELECT id FROM vets WHERE vets.name = 'Vet Stephanie Mendez'), '2021-05-04'),
+      ((SELECT id FROM animals WHERE animals.name = 'Charmander'), (SELECT id FROM vets WHERE vets.name = 'Vet Jack Harkness'), '2021-02-24'),
+      ((SELECT id FROM animals WHERE animals.name = 'Plantmon'), (SELECT id FROM vets WHERE vets.name = 'Vet Maisy Smith'), '2019-12-21'),
+      ((SELECT id FROM animals WHERE animals.name = 'Plantmon'), (SELECT id FROM vets WHERE vets.name = 'Vet William Tatcher'), '2020-08-10'),
+      ((SELECT id FROM animals WHERE animals.name = 'Plantmon'), (SELECT id FROM vets WHERE vets.name = 'Vet Maisy Smith'), '2021-04-07'),
+      ((SELECT id FROM animals WHERE animals.name = 'Squirtle'), (SELECT id FROM vets WHERE vets.name = 'Vet Stephanie Mendez'), '2019-09-29'),
+      ((SELECT id FROM animals WHERE animals.name = 'Agumon'), (SELECT id FROM vets WHERE vets.name = 'Vet Jack Harkness'), '2020-10-03'),
+      ((SELECT id FROM animals WHERE animals.name = 'Agumon'), (SELECT id FROM vets WHERE vets.name = 'Vet Jack Harkness'), '2020-11-04'),
+      ((SELECT id FROM animals WHERE animals.name = 'Boarmon'), (SELECT id FROM vets WHERE vets.name = 'Vet Maisy Smith'), '2019-01-24'),
+      ((SELECT id FROM animals WHERE animals.name = 'Boarmon'), (SELECT id FROM vets WHERE vets.name = 'Vet Maisy Smith'), '2019-05-15'),
+      ((SELECT id FROM animals WHERE animals.name = 'Boarmon'), (SELECT id FROM vets WHERE vets.name = 'Vet Maisy Smith'), '2020-02-27'),
+      ((SELECT id FROM animals WHERE animals.name = 'Boarmon'), (SELECT id FROM vets WHERE vets.name = 'Vet Maisy Smith'), '2020-08-03'),
+      ((SELECT id FROM animals WHERE animals.name = 'Blossom'), (SELECT id FROM vets WHERE vets.name = 'Vet Stephanie Mendez'), '2020-05-24'),
+      ((SELECT id FROM animals WHERE animals.name = 'Blossom'), (SELECT id FROM vets WHERE vets.name = 'Vet William Tatcher'), '2021-01-11');
