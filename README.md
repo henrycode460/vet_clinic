@@ -31,6 +31,9 @@ To get a local copy up and running follow these simple example steps.
 - run ``` git clone git@github.com:henrycode460/vet_clinic.git```
 - run ``` cd vet_clinic```
 
+### Schema Diagram
+![](https://github.com/henrycode460/vet_clinic/blob/dev/Screenshot%20(183).png) 
+
 
 ## Authors
 
